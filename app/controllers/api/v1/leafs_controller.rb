@@ -7,7 +7,7 @@ module Api
       skip_before_action :verify_authenticity_token
 
       def index
-        leaf_data = current_employee.leafs.order('created_at DESC')
+        leaf_data = current_employee.leafs.limit(5).order('id desc')
         render json: {
           data: serializer_data(leaf_data, leaf_serializer),
           message: ['leaf list '], status: 200, type: 'Success'
