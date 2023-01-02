@@ -8,35 +8,34 @@ module Api
       skip_before_action :verify_authenticity_token
 
       def index
-        attendence_data = current_employee.attendences.order(created_at: :desc)
-        render json: {
+          attendence_data = current_employee.attendences.order("DATE(created_at) DESC").page(params[:page]).per(params[:per_page])
+          render json: {
           data: serializer_data(attendence_data, attendence_serializer),
-          message: ['daily attendence list '], status: 200, type: 'Success'
-        }
+          message: ['daily attendence list  '], status: 200, type: 'Success' }
       end
 
       def show
         # attendence_data = current_employee.attendences #Attendence.where(employee_id: attendence.employee_id)
-        render json: {
+          render json: {
           data: serializer_data(@attendence_data, attendence_serializer),
           message: ['show daily attendence  '], status: 302, type: 'Success'
         }
       end
 
-      def create
-        attendence_data = current_employee.attendences.where(checkin_time: Time.zone.now - 2.minutes..Time.zone.now,
+      def create         
+         attendence_data =current_employee.attendences.where(checkin_time: Time.zone.now - 2.minutes..Time.zone.now,
                                                              employee_id: current_employee.id).last
-        if attendence_data.nil?
+          if attendence_data.nil?
           attendence_data = current_employee.attendences.create(employee_id: current_employee.id, checkin_time: Time.zone.now,
-                                                                status: 'Present', checkin_ip_address: request.remote_ip)
-        else
+                                                                status: 'Present')#, checkin_ip_address: request.remote_ip)
+          else
           attendence_data.update_column('checkout_time', nil)
         end
-        render json: {
+          render json: {
           data: serializer_data(attendence_data, attendence_serializer),
           message: ['successfully checkin '], status: 200, type: 'Success'
         }
-      end
+     end
 
       def update
         attendence_data = current_employee.todays_last_attendence
@@ -46,6 +45,7 @@ module Api
           message: ['successfully updated '], status: 200, type: 'Success'
         }
       end
+          
 
       def set_attendance
         attendence = current_employee.attendences.find_by_id params[:id]
