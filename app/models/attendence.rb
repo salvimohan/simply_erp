@@ -6,7 +6,8 @@ class Attendence < ApplicationRecord
 
   before_save :working_hour
   before_validation :checkout_time_validation, on: [:update]
-
+  paginates_per 5
+ 
   def self.search(search)
     if search
       Employee.where(['name LIKE ? ', "%#{search}%"])

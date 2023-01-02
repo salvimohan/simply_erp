@@ -8,8 +8,10 @@ module Api
       skip_before_action :verify_authenticity_token
 
       def index
-        attendence_data = current_employee.attendences.order("DATE(created_at) DESC").group_by {|u| u&.created_at&.strftime('%d-%b-%Y')}
-        render json: {data: attendence_data, message: ['daily attendence list ']},status: 200
+          attendence_data = current_employee.attendences.order("DATE(created_at) DESC").page(params[:page]).per(params[:per_page])
+          render json: {
+          data: serializer_data(attendence_data, attendence_serializer),
+          message: ['daily attendence list  '], status: 200, type: 'Success' }
       end
 
       def show

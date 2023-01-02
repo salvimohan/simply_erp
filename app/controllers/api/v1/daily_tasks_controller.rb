@@ -8,10 +8,10 @@ module Api
       skip_before_action :verify_authenticity_token
 
       def index
-        daily_task_data = current_employee.daily_tasks.order(created_at: :desc)
-        render json: {
-          data: serializer_data(daily_task_data, daily_task_serializer),
-          message: ['daily task list '], status: 200, type: 'Success'
+          @daily_task_data=current_employee.daily_tasks.order("DATE(created_at) DESC").page(params[:page]).per(params[:per_page]) 
+          render json: {
+          data: serializer_data(@daily_task_data, daily_task_serializer),
+          message: ['show daily task  '], status: 200, type: 'Success'
         }
       end
 
