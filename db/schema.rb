@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_10_073815) do
+ActiveRecord::Schema.define(version: 2022_12_02_112938) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -155,11 +156,15 @@ ActiveRecord::Schema.define(version: 2022_08_10_073815) do
     t.string "uid", default: "", null: false
     t.json "tokens"
     t.date "last_task_update"
+    t.string "alternate_phone_number"
+    t.string "alternate_email"
+    t.string "alternate_address"
+    t.string "reference_name"
+    t.string "reference_contact_number"
     t.index ["designation_id"], name: "index_employees_on_designation_id"
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_employees_on_role_id"
-    t.index ["uid", "provider"], name: "index_employees_on_uid_and_provider", unique: true
   end
 
   create_table "globel_settings", force: :cascade do |t|
