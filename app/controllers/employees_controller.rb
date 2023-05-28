@@ -48,6 +48,6 @@ class EmployeesController < ApplicationController
 
   def employee_params
     params.require(:employee).permit(:name, :father_name, :mother_name, :phone_number, :address, :email, :bank_name,
-                                     :account_number, :pan_card_number, :aadhar_card_number, :primary_skill, :password, :password_confirmation, :designation_id, :role_id, :date_of_birth, :joining_date, :gender, :image, :alternate_phone_number, :alternate_email, :alternate_address, :reference_name, :reference_contact_number)
+                                     :account_number, :pan_card_number, :aadhar_card_number, :primary_skill, :password, :password_confirmation, :designation_id, :role_id, :date_of_birth, :joining_date, :gender, :image, :alternate_phone_number, :alternate_email, :alternate_address, :reference_name, :reference_contact_number,:increment_on)
   end
 end

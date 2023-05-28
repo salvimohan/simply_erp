@@ -152,7 +152,6 @@
 
                   <h5 class="card-title">Reference Information</h5>
                   <div class="row">
-                    <% byebug %>
                     <div class="col-lg-3 col-md-4 label">Reference Name</div>
                     <div class="col-lg-9 col-md-8"><%= @employee.reference_name %></div>
                   </div>
@@ -161,6 +160,10 @@
                     <div class="col-lg-3 col-md-4 label">Contact No.</div>
                     <div class="col-lg-9 col-md-8"><%= @employee.reference_contact_number %></div>
                   </div>
+                    <div class="row">
+                              <div class="col-lg-3 col-md-4 label">Increment On</div>
+                              <div class="col-lg-9 col-md-8"><%= @employee.increment_on&.strftime("%b-%Y") %></div>
+                            </div>
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">

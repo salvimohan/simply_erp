@@ -120,6 +120,11 @@
     <div class="col-lg-2"> <%= form.label :reference_contact_number %> </div>
     <div class="col-lg-10"> <%= form.text_field :reference_contact_number %> </div>
   </div>
+
+  <div class="field row mt-3">
+    <div class="col-lg-2"> <%= form.label :increment_on %> </div>
+    <div class="col-lg-10"> <%= form.date_field :increment_on %> </div>
+  </div>
   <div class="actions"> <%= form.submit 'Save', class: "btn btn-primary right" %> </div>
 <% end %>
 
