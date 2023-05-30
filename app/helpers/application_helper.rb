@@ -28,4 +28,12 @@ module ApplicationHelper
     def date_format(date)
       date.nil? ? '' : date.strftime("%d %b %Y")
     end
+
+    def employee_image(employee)
+      unless employee.image.blank?
+        employee.image
+      else
+        "blank-profile.png"
+      end
+    end
 end

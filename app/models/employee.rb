@@ -14,6 +14,8 @@ class Employee < ApplicationRecord
   has_many :leafs, dependent: :destroy
   belongs_to  :designation
   belongs_to  :role
+  belongs_to :mentor, class_name: "Employee"
+  has_many :team_members, class_name: "Employee", foreign_key: "mentor_id"
   has_many :tickets, dependent: :destroy
   has_many :daily_tasks, dependent: :destroy
   scope :all_except, ->(employee) { where.not(id: employee) }

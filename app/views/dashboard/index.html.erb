@@ -20,83 +20,113 @@
         </div><!-- End Page Title -->
         <section class="section dashboard">
             <div class="row">
-                <!-- Left side columns -->
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body mt-4">
-                                    <div class="check-in-check-out"><%= image_tag("logo-new.png") %>
-                                        <% if current_employee.show_checkin? %>
-                                           <%= link_to 'Checkin', attendences_path, method: :post, class: "btn btn-success mb-3 right" %>
-                                        <% else %>
-                                            <%= link_to 'Checkout',  update_attendence_attendences_path, class: "btn btn-danger mb-3 right check-in-check-out"  %>
-                                        <% end %>
-                                    </div> <!-- Line Chart -->
-                                    <!-- End Line Chart -->
-                                    <br />
-                                    <div>
-                                        <span style="color: red">
-                                             Your next Appraisal cycle :- <%= current_employee.increment_on&.strftime("%b-%Y") %>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- Sales Card -->
-                        <div class="col-xxl-6 col-md-6">
-                            <div class="card info-card sales-card">
-                                <div class="filter"> <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi  bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Filter</h6>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Today</a></li>
-                                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                                        <li><a class="dropdown-item" href="#">This Year</a></li>
-                                    </ul>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Leave <span>| Balance</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-cart"></i></div>
-                                        <div class="ps-3">
-                                            <h6> <%= current_employee.leave_count %></h6>
+                <div class="col-lg-8">
+                    <!-- Left side columns -->
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body mt-4">
+                                        <div class="check-in-check-out"><%= image_tag("logo-new.png") %>
+                                            <% if current_employee.show_checkin? %>
+                                               <%= link_to 'Checkin', attendences_path, method: :post, class: "btn btn-success mb-3 right" %>
+                                            <% else %>
+                                                <%= link_to 'Checkout',  update_attendence_attendences_path, class: "btn btn-danger mb-3 right check-in-check-out"  %>
+                                            <% end %>
+                                        </div> <!-- Line Chart -->
+                                        <!-- End Line Chart -->
+                                        <br />
+                                        <div>
+                                            <span style="color: red">
+                                                 Your next Appraisal cycle :- <%= current_employee.increment_on&.strftime("%b-%Y") %>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div><!-- End Sales Card -->
-                        <!-- Revenue Card -->
-                        <div class="col-xxl-6 col-md-6">
-                            <div class="card info-card revenue-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Shift <span></span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-alarm"></i></div>
-                                        <div class="ps-3">
-                                            <h6>11 AM to 8 PM</h6>
+                            </div> <!-- Sales Card -->
+                            <div class="col-xxl-6 col-md-6">
+                                <div class="card info-card sales-card">
+                                    <div class="filter"> <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi  bi-three-dots"></i></a>
+                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li class="dropdown-header text-start">
+                                                <h6>Filter</h6>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Today</a></li>
+                                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Leave <span>| Balance</span></h5>
+                                        <div class="d-flex align-items-center">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-cart"></i></div>
+                                            <div class="ps-3">
+                                                <h6> <%= current_employee.leave_count %></h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div><!-- End Sales Card -->
+                            <!-- Revenue Card -->
+                            <div class="col-xxl-6 col-md-6">
+                                <div class="card info-card revenue-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Shift <span></span></h5>
+                                        <div class="d-flex align-items-center">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-alarm"></i></div>
+                                            <div class="ps-3">
+                                                <h6>11 AM to 8 PM</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- End Revenue Card -->
+                        </div>
+                    </div>
+               
+        
+                    <div class="container-fluid">
+                        <%= render partial: "holiday" %>
+                        <br><br>
+                        <div class="card-happy-birth card"><h1 class=" card-title p-4 happy-birthdays">Today's Birthdays</h1>
+                            <div class="happy-birthday p-3">
+                                <%#= render partial: "employee", collection: @employees %>
                             </div>
-                        </div><!-- End Revenue Card -->
-                    </div>
-                </div>
-            </div>
-    
-            <div class="container-fluid">
-                <%= render partial: "holiday" %>
-                <br><br>
-                <div class="card-happy-birth card"><h1 class=" card-title p-4 happy-birthdays">Today's Birthdays</h1>
-                    <div class="happy-birthday p-3">
-                        <%#= render partial: "employee", collection: @employees %>
-                    </div>
-                </div>
+                        </div>
 
-                <div class="card-happy-birth card mt-5"><h1 class=" card-title p-4 happy-birthdays">Recent Joinings</h1>
-                    <div class= "happy-birthday p-3"  >
-                        
-                        <%#= render partial: "employee", collection: @recent_join_employees %>
+                        <div class="card-happy-birth card mt-5"><h1 class=" card-title p-4 happy-birthdays">Recent Joinings</h1>
+                            <div class= "happy-birthday p-3"  >
+                                
+                                <%#= render partial: "employee", collection: @recent_join_employees %>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                <div class="col-lg-4 catalog-tree">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <ul id="tree" style="margin: 30px 30px;">
+                                <% @user_lists.each do |user| %>
+                                    <li>
+                                        <%= image_tag employee_image(user), class: "tree-img-width" %> 
+                                        
+                                        <%= user.name.capitalize%>
+                                        <% if user.team_members.present? %>
+                                            <ul>
+                                                <% user.team_members.each do |team_member| %>
+                                                    <li>
+                                                        <%= image_tag employee_image(team_member), class: "tree-img-width" %> 
+                                                        <%= team_member.name.capitalize%>
+                                                        
+                                                    </li>
+                                                <%end%>
+                                            </ul>
+                                        <%end%>
+                                   </li>
+                                   
+                                <%end if @user_lists.present? %>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
