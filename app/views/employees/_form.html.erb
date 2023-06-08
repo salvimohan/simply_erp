@@ -125,6 +125,10 @@
     <div class="col-lg-2"> <%= form.label :increment_on %> </div>
     <div class="col-lg-10"> <%= form.date_field :increment_on %> </div>
   </div>
+  <div class="field row mt-3">
+    <div class="col-lg-2"> <%= form.label :attendance_employee_code %> </div>
+    <div class="col-lg-10"> <%= form.text_field :attendance_employee_code %> </div>
+  </div>
   <div class="actions"> <%= form.submit 'Save', class: "btn btn-primary right" %> </div>
 <% end %>
 

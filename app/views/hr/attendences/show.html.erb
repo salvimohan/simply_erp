@@ -25,7 +25,6 @@
                 </thead>
                 <tbody>
                 <%= link_to 'Back', :back,  class: "right btn btn-primary m-4" %>
-                  <% @attendence %>
                   <% @attendences.each do |attendence| %>
                     <% if @attendence.created_at.strftime('%d-%m-%Y') == attendence.created_at.strftime('%d-%m-%Y') %>
                       <tr>

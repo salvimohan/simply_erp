@@ -1,21 +1,23 @@
-<% array = [] %>
-    <% @attendences.each do |attendence| %>
-        <% unless array.include?(attendence.created_at.strftime('%d-%m-%y')) %>
-            <% array << attendence.created_at.strftime('%d-%m-%y') %>
-            <tr>
-                <td><%= attendence.checkin_time&.strftime("%a %b %d %y %I:%M:%S %p") %></td>
-                <td><%= attendence.checkout_time&.strftime("%a %b %d %y %I:%M:%S %p") %></td>
-                <td><%= attendence.hour %></td>
-                <% unless attendence.employee.is_hr? %>
-                <td><%= link_to 'Edit', edit_hr_attendence_path(attendence), class: "btn btn-primary" %></td>
-                <% end %>
-                <td>
-                    <% if current_employee.is_hr? %>
-                    <%= link_to 'View', hr_attendence_path(attendence), class: "btn btn-primary" %>
-                    <% else %>
-                    <%= link_to 'View', attendence_path(attendence), class: "btn btn-primary" %>
-                    <% end %>
-                </td>
-            </tr>
-    <% end %>
-<% end %>
+
+  <% (1..@end_date.day).each_with_index do |day, index| %>
+    <% day = @start_date + (index).days%>
+     <% @require_minutes += [0,6].include?(day.wday) ? 0 : 500%>
+    <tr>
+        <td><%= index+1 %></td>
+        <td><%= day.strftime("%b %d %Y") %></td>
+        <% checkin, checkout, total_minutes =  checkin_days(day) %>
+        <% @total_minutes += total_minutes %>
+        <td><%= checkin %></td>
+        <td><%= checkout %></td>
+        <td><%= convert_in_hours(total_minutes) %></td>
+        <td>
+          <% if total_minutes > 0%>
+            <% if current_employee.is_hr? %>
+              <%= link_to "view details", hr_show_attendance_details_path(params[:id],  day.strftime("%Y-%m-%d")),  class: "btn btn-info"%> 
+            <% else%>  
+              <%= link_to "view details", details_attendences_path(day: day.strftime("%Y-%m-%d")),  class: "btn btn-info"%>
+            <% end%>
+          <% end%>
+        </td>
+    </tr>
+  <% end %>

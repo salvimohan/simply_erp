@@ -31,6 +31,27 @@ module AdminMain
       end
     end
 
+    def import_attendance
+    end
+
+    def import_csv
+      uploaded_file = params[:csv_file]
+      temp_file_path = uploaded_file.tempfile.path
+
+      # Process the CSV data
+      CSV.foreach(temp_file_path, headers: true) do |row|
+        Attendence.create!({
+          checkin_time: row["enter_time"], 
+          checkout_time: row["out_time"], 
+          employee_code: row["Employee Code"].to_i, 
+          total_minutes: row["total_min"].to_i
+        })
+        # Access the data using row['column_name']
+        # Create or update records in the database
+      end
+      redirect_to import_attendance_admin_main_attendences_path, { notice: 'Import successfully' }
+    end
+
     private
 
     def set_attendance

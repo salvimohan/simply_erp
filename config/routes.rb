@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :attendences do
     collection do
       get :update_attendence
+      get :details
     end
   end
   resources :salaries
@@ -44,6 +45,7 @@ Rails.application.routes.draw do
 
     resources :attendences
     get '/emp-attendance/:id', to: 'attendences#show_attendence', as: 'show_attendance'
+    get '/emp-attendance/details/:id/:day', to: 'attendences#details', as: 'show_attendance_details'
     get '/search', to: 'attendences#search'
   end
 
@@ -72,7 +74,12 @@ Rails.application.routes.draw do
     end
     resources :employees
     post '/employees/:id/generate_password', to: 'employees#generate_password'
-    resources :attendences, except: %i[create new destroy]
+    resources :attendences, except: %i[create new destroy] do
+      collection do
+        get :import_attendance
+        post :import_csv
+      end
+    end
     resources :monthly_salaries, except: %i[destroy edit]
     resources :leafs, only: :update do
       collection do

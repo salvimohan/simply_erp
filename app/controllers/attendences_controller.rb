@@ -5,11 +5,19 @@ class AttendencesController < InheritedResources::Base
   # load_and_authorize_resource
   before_action :set_attendance, only: %i[show edit]
   def index
-    @attendences = current_employee.attendences.order(created_at: :desc)
+    #@attendences = current_employee.attendences.order(created_at: :desc)
+   @start_date, @end_date = Time.now.beginning_of_month, Time.now.end_of_month
+    @attendences = Attendence.where(employee_code: current_employee.attendance_employee_code, 
+      checkin_time: (@start_date..@end_date)).group_by{|attendence| attendence.checkin_time.strftime("%d %b %Y")}
+  end
+
+  def details
+    start_date = params[:day].to_date.all_day rescue Time.now
+    @attendences = Attendence.where(employee_code: current_employee.attendance_employee_code).where(checkin_time: start_date)
   end
 
   def show
-    @attendences = Attendence.where(employee_id: @attendence.employee_id)
+    @attendences = Attendence.where(employee_code: @attendence.employee_code)
   end
 
   def create
@@ -31,7 +39,7 @@ class AttendencesController < InheritedResources::Base
   end
 
   def set_attendance
-    @attendence = current_employee.attendences.find_by_id params[:id]
+    @attendence = Attendence.where(id: params[:id], employee_code: current_employee.attendance_employee_code).first
     redirect_to root_path, alert: I18n.t('employee.not_found') unless @attendence.present?
   end
 end

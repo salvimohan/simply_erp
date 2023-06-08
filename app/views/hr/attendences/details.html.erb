@@ -15,7 +15,7 @@
           <div class="card">
             <div class="card-body">
              
-
+              <%= link_to 'Back', :back,  class: "right btn btn-primary m-4" %>
               <!-- Table with stripped rows -->
               <table class="table table-striped">
                 <thead>
@@ -26,17 +26,26 @@
                   </tr>
                 </thead>
                 <tbody>
-                <%= link_to 'Back', :back,  class: "right btn btn-primary m-4" %>
-                  <% @attendence %>
-                  <% @attendences.each do |attendence| %>
-                    <% if @attendence.created_at.strftime('%d-%m-%Y') == attendence.created_at.strftime('%d-%m-%Y') %>
+                 <%  unless @attendences.blank? %>
+                     <% @total_minutes = 0%> 
+                     <% @attendences.each do |attendence| %>
+                        <tr>
+                          <td><%= attendence.checkin_time.strftime("%a %b %d %y %I:%M:%S %p") %></td>
+                          <td><%= attendence.checkout_time&.strftime("%a %b %d %y %I:%M:%S %p") %></td>
+                          <td><%= convert_in_hours(attendence.total_minutes) %></td>
+                        </tr> 
+                        <% @total_minutes += attendence.total_minutes.to_i %>
+                      <% end  %> 
                       <tr>
-                        <td><%= attendence.checkin_time.strftime("%a %b %d %y %I:%M:%S %p") %></td>
-                        <td><%= attendence.checkout_time&.strftime("%a %b %d %y %I:%M:%S %p") %></td>
-                        <td><%= attendence.total_minutes %></td>
+                        <td>Total (8 hours 20 minutes)</td>
+                        <td></td>
+                        <td><%= convert_in_hours(@total_minutes) %></td>
                       </tr> 
-                    <% end %> 
-                  <% end %>
+                  <% else  %> 
+                      <tr>
+                        <td>No Attendance found</td>
+                      </tr>
+                  <% end  %> 
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
@@ -47,8 +56,4 @@
       </div>
     </section>
 
-  </main><!-- End #main -->
-
-
-
-
+  </main>

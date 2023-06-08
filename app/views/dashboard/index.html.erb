@@ -27,20 +27,15 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body mt-4">
-                                        <div class="check-in-check-out"><%= image_tag("logo-new.png") %>
-                                            <% if current_employee.show_checkin? %>
-                                               <%= link_to 'Checkin', attendences_path, method: :post, class: "btn btn-success mb-3 right" %>
-                                            <% else %>
-                                                <%= link_to 'Checkout',  update_attendence_attendences_path, class: "btn btn-danger mb-3 right check-in-check-out"  %>
-                                            <% end %>
-                                        </div> <!-- Line Chart -->
-                                        <!-- End Line Chart -->
-                                        <br />
-                                        <div>
-                                            <span style="color: red">
+                                         <div>
+                                            <span style="color: red" class="right">
                                                  Your next Appraisal cycle :- <%= current_employee.increment_on&.strftime("%b-%Y") %>
                                             </span>
                                         </div>
+                                        <div class="check-in-check-out"><%= image_tag("logo-new.png") %>
+                                           
+                                        </div> <!-- Line Chart -->
+                                       
                                     </div>
                                 </div>
                             </div> <!-- Sales Card -->

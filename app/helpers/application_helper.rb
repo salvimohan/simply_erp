@@ -36,4 +36,22 @@ module ApplicationHelper
         "blank-profile.png"
       end
     end
+
+    def checkin_days(day)
+      records =  @attendences[day.strftime("%d %b %Y")]
+      if records.blank?
+        checkin = "-"
+        checkout = "-"
+        total_minutes = 0
+      else
+        checkin = records.first.checkin_time&.strftime("%H:%M %p")
+        checkout = records.last.checkout_time&.strftime("%H:%M %p")
+        total_minutes = records.sum(&:total_minutes)
+      end
+      [checkin, checkout, total_minutes]
+    end
+
+    def convert_in_hours(minutes)
+      minutes == 0 ? "-" : "#{(minutes / 60)} hours #{(minutes % 60)} minutes"
+    end
 end

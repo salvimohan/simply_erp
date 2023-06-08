@@ -3,7 +3,8 @@
     <div class="pagetitle">
       <h1 class="mb-4">Attendence List</h1>
     </div>
-    <%= link_to 'Back', root_path,  class: "right btn btn-primary" %>  
+    <%= link_to 'Back', root_path,  class: "right btn btn-primary", style: "margin-left: 30px" %>
+    <%= link_to 'Import Attendence', import_attendance_admin_main_attendences_path,  class: "right btn btn-primary" %>   
     <%= form_with(url: '/admin_main/attendences', method: 'get') do |form| %>
       <%= text_field_tag :search, params[:search]%>
       <%= submit_tag("Search")%>

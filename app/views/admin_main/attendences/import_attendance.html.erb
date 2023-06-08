@@ -1,0 +1,16 @@
+
+</aside>
+ <main id="main" class="main">
+ 	<div class="pagetitle">
+      <h1 class="mb-4">Import Attendance </h1>
+    </div>
+    <br />
+	<%= form_with(url: import_csv_admin_main_attendences_path, method: :post, local: true, multipart: true) do |form| %>
+	  <div class="field row">
+	    <div class="col-lg-2"> <%= form.label :csv_file %> </div>
+	    <div class="col-lg-10"> <%= form.file_field :csv_file, class: "form-control" %> </div>
+	  </div>
+	  <br />
+	  <div class="actions"> <%= form.submit 'Save', class: "btn btn-primary right" %> </div> 
+	<% end %>
+</main> 
