@@ -13,7 +13,7 @@
         <td>
           <% if total_minutes > 0%>
             <% if current_employee.is_hr? %>
-              <%= link_to "view details", hr_show_attendance_details_path(params[:id],  day.strftime("%Y-%m-%d")),  class: "btn btn-info"%> 
+              <%= link_to "view details", hr_show_attendance_details_path(params[:id] || current_employee.id,  day.strftime("%Y-%m-%d")),  class: "btn btn-info"%> 
             <% else%>  
               <%= link_to "view details", details_attendences_path(day: day.strftime("%Y-%m-%d")),  class: "btn btn-info"%>
             <% end%>

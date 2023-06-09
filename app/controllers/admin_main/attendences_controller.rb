@@ -2,6 +2,11 @@
 
 module AdminMain
   class AttendencesController < ApplicationController
+
+    skip_before_action :authorize_admin, :only => [:import_attendance, :import_csv]
+
+    before_action :authorize_hr_or_admin, :only => [:import_attendance, :import_csv]
+
     before_action :set_attendance, only: %i[edit update]
     before_action :set_employee, only: %i[show]
 

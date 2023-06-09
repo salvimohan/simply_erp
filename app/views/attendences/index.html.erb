@@ -7,6 +7,7 @@
     <div class="pagetitle">
       <h1 class="mb-4">Attendence List</h1>
     </div><!-- End Page Title -->
+
     <section class="section">
       <div class="row">
         
@@ -15,6 +16,9 @@
           <div class="card">
             <div class="card-body">
              <h5 class="card-title"></h5>
+              <% if current_employee.is_hr? %>
+              <%= link_to 'Import Attendence', import_attendance_admin_main_attendences_path,  class: "right btn btn-primary right" %> 
+               <% end%>
               <!-- Table with stripped rows -->
               <table class="table table-striped">
                 <thead>
